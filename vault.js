@@ -7,7 +7,7 @@
     const buf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(v.v) }, key, b64(v.c));
     const s = document.createElement('script'); s.textContent = new TextDecoder().decode(buf); document.head.appendChild(s);
     $('#gate').classList.add('hidden'); $('#intro').classList.remove('hidden');
-    const a = document.createElement('script'); a.src = 'app.js'; document.body.appendChild(a);
+    const a = document.createElement('script'); a.src = 'app.js?v=1791326359147'; document.body.appendChild(a);
   }
   const err = $('#gateErr'), input = $('#gateInput');
   const clean = p => p.trim().toLowerCase().replace(/\s+/g, '');
