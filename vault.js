@@ -10,11 +10,12 @@
     const a = document.createElement('script'); a.src = 'app.js'; document.body.appendChild(a);
   }
   const err = $('#gateErr'), input = $('#gateInput');
-  async function attempt(p, remember) {
-    try { err.textContent = ''; await unlock(p.trim().toLowerCase().replace(/\s+/g, '')); if (remember) { try { localStorage.setItem('vday-k', p.trim().toLowerCase().replace(/\s+/g, '')); } catch {} } return true; }
-    catch { return false; }
-  }
-  $('#gateForm').addEventListener('submit', async e => { e.preventDefault(); err.textContent = 'Checking…'; if (!(await attempt(input.value, true))) { err.textContent = 'Hmm, try again ♥'; input.value = ''; } });
-  let saved = null; try { saved = localStorage.getItem('vday-k'); } catch {}
-  if (saved) attempt(saved, false).then(ok => { if (!ok) try { localStorage.removeItem('vday-k'); } catch {} });
+  const clean = p => p.trim().toLowerCase().replace(/\s+/g, '');
+  // never remember the word: reloading or coming back to the page always asks again
+  try { localStorage.removeItem('vday-k'); sessionStorage.clear(); } catch {}
+  addEventListener('pageshow', e => { if (e.persisted) location.reload(); });
+  $('#gateForm').addEventListener('submit', async e => {
+    e.preventDefault(); err.textContent = 'Checking…';
+    try { await unlock(clean(input.value)); input.value = ''; } catch { err.textContent = 'Hmm, try again ♥'; input.value = ''; }
+  });
 })();
