@@ -191,7 +191,7 @@ main{position:relative;z-index:1;padding-bottom:60px;animation:fadeIn 1s both}
 .tabs{overflow-x:auto;scrollbar-width:none;max-width:100%}
 .tabs::-webkit-scrollbar{display:none}
 .tab{white-space:nowrap;flex:0 0 auto}
-@media(max-width:700px){.logo{display:none}.topbar{justify-content:center}}
+@media(max-width:700px){.logo{max-width:none}#logoName{display:none}.topbar{gap:6px}}
 
 /* timeline */
 .timeline{position:relative;max-width:760px;margin:10px auto 40px;padding:6px 0}
@@ -278,3 +278,66 @@ main{position:relative;z-index:1;padding-bottom:60px;animation:fadeIn 1s both}
 html,body,*{cursor:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 28.5C6 21 3 15.5 3 11.2 3 7.2 6 4.5 9.6 4.5c2.6 0 4.9 1.5 6.4 3.9 1.5-2.4 3.8-3.9 6.4-3.9 3.6 0 6.6 2.7 6.6 6.7 0 4.3-3 9.8-13 17.3z' fill='%23ff4d6d' stroke='white' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E") 16 28,auto}
 a,button,.tab,.tl-card.has-chat,.env,.lcard,.chip,label{cursor:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 28.5C6 21 3 15.5 3 11.2 3 7.2 6 4.5 9.6 4.5c2.6 0 4.9 1.5 6.4 3.9 1.5-2.4 3.8-3.9 6.4-3.9 3.6 0 6.6 2.7 6.6 6.7 0 4.3-3 9.8-13 17.3z' fill='%23ff8fa3' stroke='white' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E") 16 28,pointer}
 input{cursor:text}
+
+#logoHeart{display:inline-block;cursor:pointer;padding:4px 6px;user-select:none;transition:transform .2s}
+#logoHeart:active{transform:scale(1.4)}
+
+/* save / copy / card buttons */
+.lrow{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.lbtn{padding:5px 13px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,214,224,.18);font-size:.8rem;color:var(--blush);transition:.2s}
+.lbtn:hover{background:rgba(255,77,109,.3)}
+.lbtn.on{background:var(--rose);border-color:var(--rose);color:#fff}
+.lheart{position:absolute;right:14px;bottom:12px;width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:rgba(0,0,0,.25);font-size:1.15rem;color:var(--blush);z-index:2}
+.lheart.on{background:var(--rose);color:#fff;animation:pop .4s}
+.sh{font-family:var(--serif);margin:22px 0 12px;color:var(--gold)}
+
+/* quote of the day */
+.qotd{max-width:640px;margin:0 auto 28px;padding:26px 24px 18px;text-align:center;border-radius:24px;border:1px solid rgba(246,193,119,.35);background:linear-gradient(145deg,rgba(246,193,119,.14),rgba(255,77,109,.1))}
+.qotd blockquote{font-family:var(--serif);font-style:italic;font-size:1.45rem;line-height:1.55;margin:8px 0 10px}
+.qotd small{color:var(--gold);letter-spacing:.1em;text-transform:uppercase;font-size:.78rem}
+.qotd .lrow{justify-content:center}
+
+/* countdowns */
+.counts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:900px;margin:0 auto 26px}
+.count{flex:1 1 200px;text-align:center;padding:18px 12px;border-radius:20px;border:1px solid rgba(255,214,224,.16);background:linear-gradient(145deg,rgba(255,77,109,.16),rgba(255,255,255,.04))}
+.count b{display:block;font-family:var(--serif);font-size:2.4rem;color:var(--blush)}
+.count span{display:block;color:var(--cream);margin-top:2px}
+.count small{display:block;margin-top:4px;color:var(--gold);font-family:var(--script);font-size:1.15rem}
+.count.today{border-color:var(--gold);box-shadow:0 0 30px rgba(246,193,119,.35)}
+
+/* scrapbook */
+.scrap{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 14px;max-width:900px;margin:0 auto;padding:10px 4px 30px}
+@media(min-width:760px){.scrap{grid-template-columns:repeat(3,1fr);gap:30px 22px}}
+.polaroid{position:relative;background:linear-gradient(#fff7f2,#ffeae8);color:#4a1226;padding:26px 14px 18px;border-radius:4px;box-shadow:0 14px 30px rgba(0,0,0,.45);transform:rotate(var(--rot,0deg));transition:transform .3s,box-shadow .3s}
+.polaroid.in{transform:rotate(var(--rot,0deg))}
+.polaroid:hover{transform:rotate(0deg) scale(1.04);z-index:2;box-shadow:0 20px 44px rgba(255,77,109,.4)}
+.polaroid .tape{position:absolute;top:-10px;left:50%;width:70px;height:22px;transform:translateX(-50%) rotate(-3deg);background:rgba(246,193,119,.65);box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.polaroid .pe{font-size:2.6rem;text-align:center;margin-bottom:6px}
+.polaroid .pd{font-family:var(--script);color:#b8864a;font-size:1.35rem;text-align:center}
+.polaroid h3{font-family:var(--serif);font-size:1.05rem;text-align:center;margin:2px 0 6px;color:#7a1634}
+.polaroid p{font-size:.88rem;line-height:1.45;text-align:center;color:#5d2a3c}
+
+/* search */
+.searchbox{max-width:600px;margin:0 auto 12px}
+.searchbox input{width:100%;font-size:1.1rem;text-align:left;padding:14px 22px}
+.qchips,.qwho{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:700px;margin:0 auto 10px}
+.qinfo{text-align:center;color:var(--gold);min-height:1.5em;margin:10px 0 16px;font-family:var(--script);font-size:1.25rem}
+.qres{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.qmore{text-align:center;margin:20px 0}
+mark{background:rgba(246,193,119,.35);color:#fff;border-radius:4px;padding:0 3px}
+
+/* surprise heart + popup */
+.surprise{position:fixed;left:0;top:0;z-index:40;width:54px;height:54px;border-radius:50%;font-size:2rem;color:#ff4d6d;background:radial-gradient(circle,rgba(255,77,109,.25),transparent 70%);transition:transform 5.5s ease-in-out;animation:floaty 2.4s ease-in-out infinite;filter:drop-shadow(0 0 14px rgba(255,77,109,.9))}
+@keyframes floaty{50%{filter:drop-shadow(0 0 22px rgba(246,193,119,.9))}}
+.pop{position:fixed;inset:0;z-index:90;background:rgba(14,3,8,.85);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .25s both}
+.pop-card{max-width:480px;width:100%;text-align:center;padding:28px 22px 22px;border-radius:26px;background:linear-gradient(160deg,#4a1429,#2a0a16);border:1px solid rgba(255,214,224,.2);box-shadow:0 30px 80px rgba(0,0,0,.6);animation:zoomIn .4s both}
+.pop-card blockquote{font-family:var(--serif);font-style:italic;font-size:1.35rem;line-height:1.55;margin:10px 0 8px}
+.pop-card small{color:var(--gold);letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+.pop-btns{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.pop-btns .btn{padding:11px 22px}
+#popSave.on{background:var(--rose)}
+
+/* secret */
+.secret{max-width:560px;margin:0 auto 40px;text-align:center}
+.secret p{font-family:var(--serif);font-style:italic;font-size:1.3rem;line-height:1.7;margin-bottom:20px}
+.secret .sign{font-family:var(--script);font-style:normal;font-size:2.2rem;color:var(--gold)}

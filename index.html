@@ -46,12 +46,15 @@
 
 <main id="app" class="hidden">
   <header class="topbar">
-    <span class="logo script">♥ <span id="logoName"></span></span>
+    <span class="logo script"><span id="logoHeart">♥</span> <span id="logoName"></span></span>
     <nav class="tabs" role="tablist">
       <button class="tab active" data-tab="letters" role="tab">Letters</button>
       <button class="tab" data-tab="words" role="tab">Words</button>
       <button class="tab" data-tab="story" role="tab">Story</button>
       <button class="tab" data-tab="open" role="tab">Open when</button>
+      <button class="tab" data-tab="firsts" role="tab">Our firsts</button>
+      <button class="tab" data-tab="search" role="tab">Search</button>
+      <button class="tab" data-tab="saved" role="tab">Saved ♥</button>
     </nav>
   </header>
 
@@ -70,6 +73,7 @@
       <h2>Our story</h2>
       <p class="sub">The moments I never want to forget, pulled from our real chat.</p>
     </div>
+    <div id="counts" class="counts"></div>
     <div id="timeline" class="timeline"></div>
     <div class="pane-head reveal">
       <p class="script small">every month we talked</p>
@@ -94,6 +98,46 @@
     <div id="openGrid" class="opens"></div>
   </section>
 
+  <section id="tab-firsts" class="pane">
+    <div class="pane-head reveal">
+      <p class="script small">the first times</p>
+      <h2>Our firsts</h2>
+      <p class="sub">A little scrapbook of everything we did for the first time.</p>
+    </div>
+    <div id="scrap" class="scrap"></div>
+  </section>
+
+  <section id="tab-search" class="pane">
+    <div class="pane-head reveal">
+      <p class="script small">find every time</p>
+      <h2>Search our love notes</h2>
+      <p class="sub">Type any word, like <i>marry</i> or <i>jannah</i>, and see every time we said it.</p>
+    </div>
+    <div class="searchbox"><input id="q" type="search" placeholder="Search a word…" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search"></div>
+    <div id="qchips" class="qchips"></div>
+    <div id="qinfo" class="qinfo"></div>
+    <div id="qres" class="qres"></div>
+    <div class="qmore"><button id="qmore" class="btn ghost" hidden>Show more</button></div>
+  </section>
+
+  <section id="tab-saved" class="pane">
+    <div class="pane-head reveal">
+      <p class="script small">the ones you kept</p>
+      <h2>Your saved ♥</h2>
+      <p class="sub">Tap the ♡ on any letter or line to save it here.</p>
+    </div>
+    <div id="savedBody"></div>
+  </section>
+
+  <section id="tab-secret" class="pane">
+    <div class="pane-head reveal">
+      <div class="big-heart beat">♥</div>
+      <p class="script small">only for you</p>
+      <h2>The secret page</h2>
+    </div>
+    <div id="secretBody" class="secret"></div>
+  </section>
+
   <section id="tab-words" class="pane">
     <div class="pane-head reveal">
       <p class="script small">straight from our chats</p>
@@ -101,6 +145,7 @@
       <p class="sub">Real numbers. Real words. Mine and yours.</p>
     </div>
     <div class="ticker big-ticker" aria-hidden="true"><div class="track"></div></div>
+    <div id="qotd" class="qotd reveal"></div>
     <div id="stats" class="stats"></div>
     <div id="quoteList" class="quotes"></div>
   </section>
@@ -111,6 +156,25 @@
     <p class="script sign">— <span id="signName"></span></p>
   </footer>
 </main>
+
+<!-- little surprise -->
+<button id="surprise" class="surprise hidden" aria-label="A little surprise">♥</button>
+<div id="pop" class="pop hidden" role="dialog" aria-modal="true">
+  <div class="pop-card">
+    <p class="script small" id="popHead">a little surprise</p>
+    <blockquote id="popText"></blockquote>
+    <small id="popWho"></small>
+    <div class="pop-btns">
+      <button id="popSave" class="rbtn">♡</button>
+      <button id="popCopy" class="rbtn">Copy</button>
+      <button id="popCard" class="rbtn">Save as card</button>
+    </div>
+    <div class="pop-btns">
+      <button id="popAgain" class="btn">Another one ›</button>
+      <button id="popClose" class="btn ghost">Close</button>
+    </div>
+  </div>
+</div>
 
 <!-- chat view (from her side) -->
 <div id="chat" class="chatview hidden" role="dialog" aria-modal="true">
