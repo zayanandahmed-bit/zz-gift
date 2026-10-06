@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2a0a16">
+<title>For You ♥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="hearts" aria-hidden="true"></canvas>
+
+<!-- optional passcode -->
+<section id="gate" class="screen">
+  <div class="gate-card">
+    <div class="big-heart">♥</div>
+    <p class="script">Just for you</p>
+    <form id="gateForm">
+      <input id="gateInput" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Secret word" aria-label="Secret word">
+      <button class="btn" type="submit">Unlock</button>
+    </form>
+    <p id="gateErr" class="err" role="alert"></p>
+  </div>
+</section>
+
+<!-- intro -->
+<section id="intro" class="screen hidden">
+  <div class="intro-inner">
+    <p class="script small">Made just for you</p>
+    <h1 id="herName">My Love</h1>
+    <p id="heroLine" class="hero-line"></p>
+    <div id="counter" class="counter" hidden>
+      <div><b id="cDays">0</b><span>days</span></div>
+      <div><b id="cHours">0</b><span>hours</span></div>
+      <div><b id="cMins">0</b><span>mins</span></div>
+      <div><b id="cSecs">0</b><span>secs</span></div>
+    </div>
+    <p id="counterLabel" class="counter-label" hidden>of loving you, and counting</p>
+    <button id="openBtn" class="btn big">Open ♥</button>
+  </div>
+  <div class="ticker intro-ticker" aria-hidden="true"><div class="track"></div></div>
+</section>
+
+<main id="app" class="hidden">
+  <header class="topbar">
+    <span class="logo script">♥ <span id="logoName"></span></span>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="letters" role="tab">Letters</button>
+      <button class="tab" data-tab="words" role="tab">Words</button>
+      <button class="tab" data-tab="story" role="tab">Story</button>
+      <button class="tab" data-tab="open" role="tab">Open when</button>
+    </nav>
+  </header>
+
+  <section id="tab-letters" class="pane active">
+    <div class="pane-head reveal">
+      <p class="script small">in my own words</p>
+      <h2>Everything I ever wrote you</h2>
+      <p class="sub"><span id="letterCount">0</span> letters · tap one to read</p>
+    </div>
+    <div id="letterList" class="letters"></div>
+  </section>
+
+  <section id="tab-story" class="pane">
+    <div class="pane-head reveal">
+      <p class="script small">since 17 July 2024</p>
+      <h2>Our story</h2>
+      <p class="sub">The moments I never want to forget, pulled from our real chat.</p>
+    </div>
+    <div id="timeline" class="timeline"></div>
+    <div class="pane-head reveal">
+      <p class="script small">every month we talked</p>
+      <h2>How much we talked</h2>
+      <p class="sub">Messages per month. Look at May 2026.</p>
+    </div>
+    <div id="monthChart" class="months reveal"></div>
+    <div class="pane-head reveal">
+      <p class="script small">what we call each other</p>
+      <h2>Our nicknames</h2>
+      <p class="sub">How many times each of us said them.</p>
+    </div>
+    <div id="nickGrid" class="nicks"></div>
+  </section>
+
+  <section id="tab-open" class="pane">
+    <div class="pane-head reveal">
+      <p class="script small">for every mood</p>
+      <h2>Open when…</h2>
+      <p class="sub">Pick the one that fits how you feel right now.</p>
+    </div>
+    <div id="openGrid" class="opens"></div>
+  </section>
+
+  <section id="tab-words" class="pane">
+    <div class="pane-head reveal">
+      <p class="script small">straight from our chats</p>
+      <h2>How much you mean to me</h2>
+      <p class="sub">Real numbers. Real words. Mine and yours.</p>
+    </div>
+    <div class="ticker big-ticker" aria-hidden="true"><div class="track"></div></div>
+    <div id="stats" class="stats"></div>
+    <div id="quoteList" class="quotes"></div>
+  </section>
+
+  <footer class="finale reveal">
+    <div class="big-heart beat">♥</div>
+    <p id="finaleText"></p>
+    <p class="script sign">— <span id="signName"></span></p>
+  </footer>
+</main>
+
+<!-- chat view (from her side) -->
+<div id="chat" class="chatview hidden" role="dialog" aria-modal="true">
+  <div class="chat-head">
+    <button id="chatClose" class="rbtn" aria-label="Close">✕</button>
+    <div class="chat-title"><b id="chatTitle"></b><small id="chatDate"></small></div>
+  </div>
+  <div id="chatBody" class="chat-body"></div>
+</div>
+
+<!-- letter reader -->
+<div id="reader" class="reader hidden" role="dialog" aria-modal="true">
+  <div class="reader-progress"><i id="rProg"></i></div>
+  <div class="reader-bar">
+    <button id="rClose" class="rbtn" aria-label="Close">✕</button>
+    <span id="rPos" class="lb-pos"></span>
+    <span class="rtools">
+      <button id="rSmall" class="rbtn" aria-label="Smaller text">A−</button>
+      <button id="rBig" class="rbtn" aria-label="Bigger text">A+</button>
+    </span>
+  </div>
+  <div id="rScroll" class="reader-scroll">
+    <article class="paper">
+      <p id="rDate" class="script small"></p>
+      <h3 id="rTitle"></h3>
+      <div id="rBody" class="body"></div>
+      <div class="paper-end">♥</div>
+      <div class="reader-next">
+        <button id="rPrev" class="btn ghost">‹ Previous</button>
+        <button id="rNext" class="btn">Next letter ›</button>
+      </div>
+    </article>
+  </div>
+</div>
+
+<script src="vault.js"></script>
+</body>
+</html>
